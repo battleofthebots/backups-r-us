@@ -8,8 +8,8 @@ RUN pip install Flask-AutoIndex pyminizip && \
 WORKDIR /opt
 USER user
 RUN ssh-keygen -q -t rsa -b 1024 -N '' -f /home/user/.ssh/id_rsa && \
-    cp -a /home/user/.ssh/id_rsa.pub /home/user/.ssh/authorized_keys
+    ln -s /home/user/.ssh/id_rsa.pub /home/user/.ssh/authorized_keys
 
 COPY app.py /opt
 USER root
-CMD service ssh start && su user -l -c "python3 /opt/app.py"
+CMD service ssh start && su user -s /bin/bash -l -c "ssh-keygen -q -t rsa -b 1024 -N '' -f /home/user/.ssh/id_rsa<<<y  && python3 /opt/app.py"
