@@ -1,6 +1,6 @@
 # Backups R Us
 
-### Insecure Backup of home directory
+You know what they say when it comes to backups, you can never have too many. That's why we host our encrypted backups on our webserver!
 
 ## Building
 ```sh
