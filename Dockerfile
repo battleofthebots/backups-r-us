@@ -13,3 +13,5 @@ RUN ssh-keygen -q -t rsa -b 1024 -N '' -f /home/user/.ssh/id_rsa && \
 COPY app.py /opt
 USER root
 CMD service ssh start && su user -s /bin/bash -l -c "ssh-keygen -q -t rsa -b 1024 -N '' -f /home/user/.ssh/id_rsa<<<y  && python3 /opt/app.py"
+HEALTHCHECK --interval=10s --timeout=5s --start-period=10s --retries=3 \
+    CMD [ $(curl -I -s http://0.0.0.0:80 | head -n 1 | cut -d' ' -f2 | head -n 1) -eq 200 ] || exit 1
